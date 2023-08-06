@@ -4,6 +4,9 @@ Project from Discovering Godot
 
 ## Progress
 
+- [x] Two Players Control 
+![Two Players Control](_screenshots/two-players-control.png)
+
 - [x] CubeDude Better Movement 
 ![Cubedude Better Movement](_screenshots/cubedude-move.png)
 
