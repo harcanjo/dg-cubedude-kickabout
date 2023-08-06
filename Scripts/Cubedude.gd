@@ -1,6 +1,7 @@
 extends KinematicBody
 
 var motion = Vector3()
+var can_move = true
 
 export var player_id = 1
 export var speed = 10
@@ -10,12 +11,18 @@ const GRAVITY = -5
 const EPSILON = 0.000001
 
 func _physics_process(delta):
-	move()
+	if can_move:
+		move()
+		animate()
 	fall()
 	
 func _process(delta):
-	animate()
 	face_forward()
+	
+func reset():
+	var my_spawn = get_tree().get_root().find_node(("Player%sSpawn" % player_id), true, false)
+	translation = my_spawn.translation
+	can_move(true)
 
 func move():
 	if Input.is_action_pressed("up_%s" % player_id) and not Input.is_action_pressed("down_%s" % player_id):
@@ -51,7 +58,8 @@ func face_forward():
 	if not motion.x == 0 or not motion.z == 0:
 		look_at(Vector3(-motion.x, 0, -motion.z) * speed, UP)
 
-
+func can_move(value):
+	can_move = value
 
 
 
