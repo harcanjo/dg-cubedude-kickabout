@@ -6,7 +6,7 @@
 [sub_resource type="CapsuleShape" id=1]
 
 radius = 0.47015
-height = 1.16441
+height = 1.05574
 
 [node name="Cubedude" index="0" instance=ExtResource( 1 )]
 

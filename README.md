@@ -4,6 +4,9 @@ Project from Discovering Godot
 
 ## Progress
 
+- [x] CubeDude Better Movement 
+![Cubedude Better Movement](_screenshots/cubedude-move.png)
+
 - [x] WorldEnvironment and DirectionalLight 
 ![Light](_screenshots/light.png)
 
