@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://default_env.tres" type="Environment" id=2]
@@ -10,16 +10,18 @@
 [ext_resource path="res://Scenes/Goal.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Models/Goal/GoalBlue.material" type="Material" id=9]
 [ext_resource path="res://Models/Goal/GoalGreen.material" type="Material" id=10]
-[ext_resource path="res://Scenes/GUI.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Scenes/Wagon.tscn" type="PackedScene" id=12]
-[ext_resource path="res://GFX/floor.material" type="Material" id=13]
-[ext_resource path="res://GFX/BackWall.material" type="Material" id=14]
-[ext_resource path="res://GFX/SkirtingBoard.material" type="Material" id=15]
-[ext_resource path="res://Scenes/Bear.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Scenes/Block.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Scenes/Advert.tscn" type="PackedScene" id=18]
-[ext_resource path="res://GFX/Picture.material" type="Material" id=19]
-[ext_resource path="res://SFX/airhorn.ogg" type="AudioStream" id=20]
+[ext_resource path="res://Scripts/DirectionalLight.gd" type="Script" id=11]
+[ext_resource path="res://Scripts/SpotLight.gd" type="Script" id=12]
+[ext_resource path="res://Scenes/GUI.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Wagon.tscn" type="PackedScene" id=14]
+[ext_resource path="res://GFX/floor.material" type="Material" id=15]
+[ext_resource path="res://GFX/BackWall.material" type="Material" id=16]
+[ext_resource path="res://GFX/SkirtingBoard.material" type="Material" id=17]
+[ext_resource path="res://Scenes/Bear.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Scenes/Block.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Scenes/Advert.tscn" type="PackedScene" id=20]
+[ext_resource path="res://GFX/Picture.material" type="Material" id=21]
+[ext_resource path="res://SFX/airhorn.ogg" type="AudioStream" id=22]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -45,33 +47,52 @@ subdivide_depth = 0
 
 points = PoolVector3Array( -1, 5, 8, 1, 5, -8, 1, 5, 8, -1, 5, -8, -1, -5, 8, 1, -5, -8, 1, -5, 8, -1, -5, -8, 1, 5, 8, -1, 5, -8, 1, 5, -8, -1, 5, 8, 1, -5, 8, -1, -5, -8, 1, -5, -8, -1, -5, 8, 1, 5, 8, -1, -5, 8, -1, 5, 8, 1, -5, 8, 1, 5, -8, -1, -5, -8, -1, 5, -8, 1, -5, -8 )
 
-[sub_resource type="PlaneMesh" id=5]
+[sub_resource type="Animation" id=5]
+
+resource_name = "Dim_Light"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+
+[sub_resource type="PlaneMesh" id=6]
 
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 size = Vector2( 100, 100 )
 subdivide_width = 0
 subdivide_depth = 0
 
-[sub_resource type="PlaneMesh" id=6]
+[sub_resource type="PlaneMesh" id=7]
 
-material = ExtResource( 14 )
+material = ExtResource( 16 )
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 size = Vector2( 75, 50 )
 subdivide_width = 0
 subdivide_depth = 0
 
-[sub_resource type="CubeMesh" id=7]
+[sub_resource type="CubeMesh" id=8]
 
-material = ExtResource( 15 )
+material = ExtResource( 17 )
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 size = Vector3( 100, 2, 2 )
 subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="PlaneMesh" id=8]
+[sub_resource type="PlaneMesh" id=9]
 
-material = ExtResource( 19 )
+material = ExtResource( 21 )
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 size = Vector2( 7, 9 )
 subdivide_width = 0
@@ -101,7 +122,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Ball" parent="." index="1" instance=ExtResource( 3 )]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12491, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12491, -0.0636511 )
 
 [node name="Pitch" parent="." index="2" instance=ExtResource( 4 )]
 
@@ -442,12 +463,14 @@ disabled = false
 
 editor/display_folded = true
 
-[node name="DirectionalLight" type="DirectionalLight" parent="Lights" index="0"]
+[node name="DirectionalLight" type="DirectionalLight" parent="Lights" index="0" groups=[
+"celebrant",
+]]
 
 transform = Transform( 0.725266, -0.292084, 0.623439, 0, 0.905544, 0.424252, -0.688468, -0.307695, 0.656761, 14.9694, 13.3719, 13.1276 )
 layers = 1
 light_color = Color( 0.989319, 1, 0.804688, 1 )
-light_energy = 1.0
+light_energy = 0.0
 light_indirect_energy = 1.0
 light_negative = false
 light_specular = 0.5
@@ -468,7 +491,44 @@ directional_shadow_normal_bias = 0.8
 directional_shadow_bias_split_scale = 0.25
 directional_shadow_depth_range = 0
 directional_shadow_max_distance = 200.0
+script = ExtResource( 11 )
 _sections_unfolded = [ "Light", "Shadow" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Lights/DirectionalLight" index="0"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/Dim_Light = SubResource( 5 )
+blend_times = [  ]
+
+[node name="SpotLight" type="SpotLight" parent="Lights" index="1" groups=[
+"celebrant",
+]]
+
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0, 6, 0 )
+layers = 1
+light_color = Color( 1, 1, 1, 1 )
+light_energy = 2.0
+light_indirect_energy = 1.0
+light_negative = false
+light_specular = 0.5
+light_bake_mode = 1
+light_cull_mask = -1
+shadow_enabled = true
+shadow_color = Color( 0, 0, 0, 1 )
+shadow_bias = 0.15
+shadow_contact = 0.0
+shadow_reverse_cull_face = false
+editor_only = false
+spot_range = 11.0
+spot_attenuation = 1.0
+spot_angle = 20.0
+spot_angle_attenuation = 1.0
+script = ExtResource( 12 )
+_sections_unfolded = [ "Light", "Shadow", "Spot", "Transform" ]
 
 [node name="Timer" type="Timer" parent="." index="7"]
 
@@ -495,13 +555,13 @@ _sections_unfolded = [ "Transform" ]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 0 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="GUI" parent="." index="9" instance=ExtResource( 11 )]
+[node name="GUI" parent="." index="9" instance=ExtResource( 13 )]
 
 [node name="Decor" type="Node" parent="." index="10"]
 
 editor/display_folded = true
 
-[node name="Wagon" parent="Decor" index="0" instance=ExtResource( 12 )]
+[node name="Wagon" parent="Decor" index="0" instance=ExtResource( 14 )]
 
 transform = Transform( -5.87785, 0, -8.09017, 0, 10, 0, 8.09017, 0, -5.87785, -13.9059, 0.262756, 2.14241 )
 _sections_unfolded = [ "Transform" ]
@@ -517,9 +577,9 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 5 )
+mesh = SubResource( 6 )
 skeleton = NodePath("..")
-material/0 = ExtResource( 13 )
+material/0 = ExtResource( 15 )
 _sections_unfolded = [ "Transform", "material" ]
 
 [node name="BackWall" type="MeshInstance" parent="Decor" index="2"]
@@ -534,7 +594,7 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 6 )
+mesh = SubResource( 7 )
 skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
@@ -551,32 +611,32 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 7 )
+mesh = SubResource( 8 )
 skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
 
-[node name="Bear" parent="Decor" index="4" instance=ExtResource( 16 )]
+[node name="Bear" parent="Decor" index="4" instance=ExtResource( 18 )]
 
 transform = Transform( -1.73205, 0, 1, 0, 2, 0, -1, 0, -1.73205, 11, 0, -9 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Block1" parent="Decor" index="5" instance=ExtResource( 17 )]
+[node name="Block1" parent="Decor" index="5" instance=ExtResource( 19 )]
 
 transform = Transform( 0.642278, 0, 0.766472, 0, 1, 0, -0.766472, 0, 0.642278, -12.7613, 1.42689, -5.30766 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Block2" parent="Decor" index="6" instance=ExtResource( 17 )]
+[node name="Block2" parent="Decor" index="6" instance=ExtResource( 19 )]
 
 transform = Transform( 0.616186, 0, -0.787601, 0, 1, 0, 0.787601, 0, 0.616186, -10.9915, 1.42689, -6.69234 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Block3" parent="Decor" index="7" instance=ExtResource( 17 )]
+[node name="Block3" parent="Decor" index="7" instance=ExtResource( 19 )]
 
 transform = Transform( -0.856824, 0, -0.515608, 0, 1, 0, 0.515608, 0, -0.856824, -11.7644, 3.43221, -6.08759 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Advert" parent="Decor" index="8" instance=ExtResource( 18 )]
+[node name="Advert" parent="Decor" index="8" instance=ExtResource( 20 )]
 
 transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 2, -11 )
 _sections_unfolded = [ "Transform" ]
@@ -593,14 +653,14 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 8 )
+mesh = SubResource( 9 )
 skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
 
 [node name="Airhorn" type="AudioStreamPlayer" parent="." index="11"]
 
-stream = ExtResource( 20 )
+stream = ExtResource( 22 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = false

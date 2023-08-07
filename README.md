@@ -4,6 +4,9 @@ Project from Discovering Godot
 
 ## Progress
 
+- [x] Game VFX
+![Game VFX](_screenshots/vfx.gif)
+
 - [x] Background Details
 ![Background Details](_screenshots/background-details.png)
 
