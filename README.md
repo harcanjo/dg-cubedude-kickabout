@@ -4,6 +4,9 @@ Project from Discovering Godot
 
 ## Progress
 
+- [x] GUI HUD
+![GUI HUD](_screenshots/gui.png)
+
 - [x] Two Players Control 
 ![Two Players Control](_screenshots/two-players-control.png)
 
