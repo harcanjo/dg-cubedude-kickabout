@@ -4,6 +4,9 @@ Project from Discovering Godot
 
 ## Progress
 
+- [x] GUI Game Over
+![GUI Game Over](_screenshots/game-over-gui.png)
+
 - [x] GUI HUD
 ![GUI HUD](_screenshots/gui.png)
 
