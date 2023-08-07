@@ -11,5 +11,5 @@ dest_files=[ "res://.import/dominoespizzaakacatchme.ogg-b6cd0e5b697956beaf67e264
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0

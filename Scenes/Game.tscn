@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://default_env.tres" type="Environment" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Scenes/Block.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Advert.tscn" type="PackedScene" id=18]
 [ext_resource path="res://GFX/Picture.material" type="Material" id=19]
+[ext_resource path="res://SFX/airhorn.ogg" type="AudioStream" id=20]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -83,7 +84,7 @@ maximum_score = 2
 
 [node name="Camera" type="Camera" parent="." index="0"]
 
-transform = Transform( 1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 5, 13 )
+transform = Transform( 1, 0, 0, 0, 0.939839, 0.341618, 0, -0.341618, 0.939839, 0, 7.2226, 12.0035 )
 keep_aspect = 1
 cull_mask = 1048575
 environment = ExtResource( 2 )
@@ -596,6 +597,15 @@ mesh = SubResource( 8 )
 skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
+
+[node name="Airhorn" type="AudioStreamPlayer" parent="." index="11"]
+
+stream = ExtResource( 20 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
 
 [connection signal="body_entered" from="Goals/Goal1/GoalDetection" to="." method="_on_GoalDetection_body_entered" binds= [ 2 ]]
 

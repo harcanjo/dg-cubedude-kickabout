@@ -27,6 +27,8 @@ func _on_GoalDetection_body_entered(body, goal_id):
 	get_tree().call_group("player", "can_move", false)
 	update_score(goal_id)
 	$Timer.start()
+	if not $Airhorn.is_playing():
+		$Airhorn.play()
 
 func _on_Timer_timeout():
 	reset_pitch()
