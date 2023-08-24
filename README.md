@@ -2,6 +2,8 @@
 
 Project from Discovering Godot
 
+Godot version: Godot_v3.0.4
+
 ## Progress
 
 - [x] Game VFX
